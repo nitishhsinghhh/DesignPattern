@@ -107,12 +107,10 @@ public:
 	Client() : pstringConversion(nullptr) {}
 
 	void BuildStringConversion(ConversionType conversionType) {
-		if (pstringConversion) {
-			delete pstringConversion;
-			pstringConversion = nullptr;
-		}
+		StringConversionFactory* scf = new StringConversionFactory();
+		pstringConversion = scf->build(conversionType);
 
-		pstringConversion = StringConversionFactory::createStringConversion(conversionType);
+		delete scf;
 	}
 
 	~Client() {
