@@ -181,3 +181,17 @@ int main() {
     delete pClient;
     return 0;
 }
+
+/*
+Output:
+	Lower Case 1: this is a sample string.
+	Lower Case 2: complex string with multiple words.
+	Upper Case 1: THIS IS A SAMPLE STRING.
+	Upper Case 2: COMPLEX STRING WITH MULTIPLE WORDS.
+	Sentence Case 1: This is a sample string.
+	Sentence Case 2: Complex string with multiple words.
+	Capitalize Each Word 1: This Is A Sample String.
+	Capitalize Each Word 2: Complex String With Multiple Words.
+	Toggle Case 1: tHIS IS A SAMPLE STRING.
+	Toggle Case 2: Complex sTRING WITH mULTIPLE wORDS.
+*/
