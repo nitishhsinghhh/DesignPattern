@@ -4,6 +4,7 @@
 
 using namespace std;
 
+// Enum to represent different types of string conversions
 enum ConversionType {
 	CT_LowerCase,
 	CT_UpperCase,
@@ -12,14 +13,16 @@ enum ConversionType {
 	CT_ToggleCase
 };
 
-// Library Classes
-
+// Abstract base class for string conversions
 class StringConversion {
 public:
 	virtual string convertString(string s) = 0;	// pure virtual class
 	virtual ~StringConversion() {}
 };
 
+// Library Classes
+
+// Converts the string to lowercase
 class ClasstoLowerCase : public StringConversion {
 public:
 	string convertString(string s) {
@@ -30,6 +33,7 @@ public:
 	}
 };
 
+// Converts the string to uppercase
 class ClasstoUpperCase : public StringConversion {
 public:
 	string convertString(string s) {
@@ -40,6 +44,7 @@ public:
 	}
 };
 
+// Capitalizes each word in the string
 class ClasscapitalizeEachWord : public StringConversion {
 public:
 	string convertString(string s) {
@@ -57,6 +62,7 @@ public:
 	}
 };
 
+// Converts the string to sentence case (first letter uppercase, rest lowercase)
 class ClasstoSentenceCase : public StringConversion {
 public:
 	string convertString(string s) {
@@ -69,6 +75,7 @@ public:
 	}
 };
 
+// Toggles the case of each character in the string
 class ClasstoggleCase : public StringConversion {
 public:
 	string convertString(string s) {
@@ -82,6 +89,7 @@ public:
 	}
 };
 
+// Factory class for creating StringConversion objects based on ConversionType
 class StringConversionFactory {
 public:
 	static StringConversion* createStringConversion(ConversionType conversionType) {
@@ -102,13 +110,14 @@ public:
 	}
 };
 
+// Client class to use the StringConversion objects
 class Client {
 public:
 	Client() : pstringConversion(nullptr) {}
 
 	void BuildStringConversion(ConversionType conversionType) {
 		StringConversionFactory* scf = new StringConversionFactory();
-		pstringConversion = scf->build(conversionType);
+		pstringConversion = scf->createStringConversion(conversionType);
 
 		delete scf;
 	}
@@ -125,30 +134,50 @@ public:
 private:
 	StringConversion* pstringConversion;
 };
-
 int main() {
-  
-  // Lower case
-	Client* pClient = new Client();
-	pClient->BuildStringConversion(CT_LowerCase);
-	pClient->getConversionType()->convertString("aBGDFDYIwwerr");
+	
+    // Create a Client object
+    Client* pClient = new Client();
 
-	// Upper Case
-	pClient->BuildStringConversion(CT_UpperCase);
-	pClient->getConversionType()->convertString("aBGDFDYIwwerr");
+    // Input strings
+    string input1 = "This is a sample string.";
+    string input2 = "cOMpLEx StrinG with Multiple WORDS.";
 
-	// Sentense Case
-	pClient->BuildStringConversion(CT_SentenceCase);
-	pClient->getConversionType()->convertString("aBGDF DY Iwwe rr");
+    // Lower case conversion
+    pClient->BuildStringConversion(CT_LowerCase);
+    string lowerCase1 = pClient->getConversionType()->convertString(input1);
+    string lowerCase2 = pClient->getConversionType()->convertString(input2);
+    cout << "Lower Case 1: " << lowerCase1 << endl;
+    cout << "Lower Case 2: " << lowerCase2 << endl;
 
-	// Capitalize
-	pClient->BuildStringConversion(CT_Capitalize);
-	pClient->getConversionType()->convertString("aBGDF dfDYI fww gerr");
+    // Upper case conversion
+    pClient->BuildStringConversion(CT_UpperCase);
+    string upperCase1 = pClient->getConversionType()->convertString(input1);
+    string upperCase2 = pClient->getConversionType()->convertString(input2);
+    cout << "Upper Case 1: " << upperCase1 << endl;
+    cout << "Upper Case 2: " << upperCase2 << endl;
 
-	// Toggle Case
-	pClient->BuildStringConversion(CT_ToggleCase);
-	pClient->getConversionType()->convertString("aBGD FDddd YIwTGtSE werr");
-  
-	delete pClient;
-	return 0;
+    // Sentence case conversion
+    pClient->BuildStringConversion(CT_SentenceCase);
+    string sentenceCase1 = pClient->getConversionType()->convertString(input1);
+    string sentenceCase2 = pClient->getConversionType()->convertString(input2);
+    cout << "Sentence Case 1: " << sentenceCase1 << endl;
+    cout << "Sentence Case 2: " << sentenceCase2 << endl;
+
+    // Capitalize each word conversion
+    pClient->BuildStringConversion(CT_Capitalize);
+    string capitalize1 = pClient->getConversionType()->convertString(input1);
+    string capitalize2 = pClient->getConversionType()->convertString(input2);
+    cout << "Capitalize Each Word 1: " << capitalize1 << endl;
+    cout << "Capitalize Each Word 2: " << capitalize2 << endl;
+
+    // Toggle case conversion
+    pClient->BuildStringConversion(CT_ToggleCase);
+    string toggleCase1 = pClient->getConversionType()->convertString(input1);
+    string toggleCase2 = pClient->getConversionType()->convertString(input2);
+    cout << "Toggle Case 1: " << toggleCase1 << endl;
+    cout << "Toggle Case 2: " << toggleCase2 << endl;
+
+    delete pClient;
+    return 0;
 }
