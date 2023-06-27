@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-
 using namespace std;
 
 // Enum to represent different types of string conversions
@@ -48,8 +47,8 @@ public:
 class ClasscapitalizeEachWord : public StringConversion {
 public:
 	string convertString(string s) {
-		std::istringstream iss(s);
-		std::string result, word;
+		istringstream iss(s);
+		string result, word;
 		while (iss >> word) {
 			if (!result.empty())
 				result += ' ';
